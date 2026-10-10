@@ -1,0 +1,8 @@
+model,cv_f1_macro,test_accuracy,test_f1_macro,pca_components,train_cv_seconds,predict_seconds,best_params
+PCA (95%) + RBF SVM,0.9486,0.9583,0.9581,289,14.5,1.41,"{'model__C': 10.0, 'model__gamma': 'scale'}"
+RBF SVM,0.946,0.955,0.9548,784,49.8,3.91,"{'model__C': 10.0, 'model__gamma': 'scale'}"
+PCA (95%) + k-NN,0.9143,0.92,0.919,289,0.8,0.1,"{'model__n_neighbors': 5, 'model__weights': 'uniform'}"
+k-NN,0.9095,0.9143,0.9135,784,2.6,0.33,"{'model__n_neighbors': 5, 'model__weights': 'uniform'}"
+Logistic regression,0.905,0.9117,0.91,784,2.4,0.0,{'model__C': 0.1}
+PCA (95%) + linear SVM,0.8995,0.9073,0.9058,289,148.9,0.0,{'model__C': 0.01}
+Linear SVM,0.8902,0.8987,0.8966,784,363.6,0.01,{'model__C': 0.01}
