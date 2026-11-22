@@ -23,7 +23,7 @@ mu1 = np.array([2,2])
 muout = np.array([-8,-8])
 Sigma_ex1 = np.eye(p)
 Sigma_ex2 = np.array([[5, 0.1],
-                      [1, 0.5]])
+                      [0.1, 0.5]])
 Sigma_ex3 = np.array([[0.5, 1],
                       [1, 5]])
 Sigma0 = Sigma_ex1
@@ -53,9 +53,8 @@ if nout > 0:
   x0[:,n0:n0+nout] = muout_mat + la.sqrtm(Sigmaout)@rnd.randn(p,nout)
 y = np.concatenate((-np.ones(n0+nout),np.ones(n1)))
 X = np.ones((n,p+1))
-for i in np.arange(n):
-     X[0:n0+nout,1:p+1] = x0.T
-     X[n0+nout:n,1:p+1] = x1.T
+X[0:n0+nout,1:p+1] = x0.T
+X[n0+nout:n,1:p+1] = x1.T
 ################################################################################
 
 ################################################################################
@@ -71,11 +70,11 @@ ax.legend(loc = "upper left")
 
 
 # ols
-theta_ols = la.inv(X.T @ X) @ (X.T @ y)
+theta_ols = la.lstsq(X, y)[0]
 
 # Regression Ridge
-I = np.eye(p+1)
-theta_ridge = la.inv(X.T @ X + n*lamb*I) @ (X.T @ y)
+D = np.diag([0] + [1] * p)  # On ne pénalise pas la constante
+theta_ridge = la.solve(X.T @ X + n*lamb*D, X.T @ y, assume_a="pos")
 
 # Regression logistique
 from sklearn.linear_model import LogisticRegression
@@ -94,6 +93,8 @@ theta_log[1:] = logreg.coef_[0]
 xx = np.linspace(-12, 6, 400)
 
 def hyperplane(theta):
+    if np.isclose(theta[2], 0):
+        raise ValueError("Impossible de tracer la frontière : coefficient vertical nul.")
     return -(theta[0] + theta[1]*xx) / theta[2]
 
 ax.plot(xx, hyperplane(theta_ols), 'k-',  linewidth=2, label='OLS')
