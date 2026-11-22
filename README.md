@@ -45,7 +45,7 @@ Pour ce benchmark, j'ai utilisé 12 000 images d'entraînement et 3 000 images d
 
 Avec la PCA, j'ai conservé 95 % de la variance. Le nombre de variables est passé de **784 à 289**, soit **63,1 % de réduction**.
 
-Le meilleur résultat a été obtenu avec **PCA + SVM RBF : 95,83 % d'accuracy** et **95,81 % de F1-score macro** sur le test.
+Sur cet ensemble de test, le meilleur résultat a été obtenu avec **PCA + SVM RBF : 95,83 % d'accuracy** et **95,81 % de F1-score macro**. Cet écart ne suffit pas à conclure que la PCA améliore systématiquement la précision.
 
 Pour le SVM RBF, le temps de recherche d'hyperparamètres et de validation croisée est passé de **49,8 à 14,5 secondes**, soit une réduction d'environ **70,9 %**. Le temps de prédiction est aussi passé de 3,91 à 1,41 seconde.
 
@@ -91,4 +91,4 @@ Python, NumPy, pandas, Matplotlib, SciPy et scikit-learn.
 
 ## Rapport
 
-Le rapport du projet est disponible dans `Rapport_STAT_ELMASRAR_KARA.pdf`.
+Les scripts permettent de reproduire les expériences de régression et de classification. Les temps du benchmark dépendent de la machine et de la version des bibliothèques.
