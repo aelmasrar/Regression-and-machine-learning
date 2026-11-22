@@ -43,6 +43,7 @@ def polynomial_regression(x, y, degree=10):
 
     # Solution des moindres carrés
     theta = np.linalg.lstsq(Z, y, rcond=None)[0]
+    print(f"Conditionnement de la matrice polynomiale : {np.linalg.cond(Z):.2e}")
     y_pred = Z @ theta
     mse = np.mean((y - y_pred) ** 2)
     print(f"Erreur polynomiale (degré {degree}) : {mse:.4f}")
