@@ -8,7 +8,7 @@ from sklearn.datasets import fetch_openml
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, accuracy_score, f1_score
 
 
 ###############################################################################
@@ -26,7 +26,8 @@ lb = np.array(mnist.target,dtype=int)
 X_train, X_test, y_train, y_test = train_test_split(
     img, lb, 
     test_size=0.25, 
-    random_state=0)
+    random_state=0,
+    stratify=lb)
 # Number of classes
 k = len(np.unique(lb))
 # Sample sizes and dimension
@@ -49,6 +50,8 @@ log_reg_l2.fit(X_train_scaled, y_train)
 
 # 3. Affichage de la matrice de confusion 
 y_pred = log_reg_l2.predict(X_test_scaled)
+print(f"L2 - accuracy : {accuracy_score(y_test, y_pred):.4f}")
+print(f"L2 - F1 macro : {f1_score(y_test, y_pred, average='macro'):.4f}")
 cm = confusion_matrix(y_test, y_pred)
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=np.unique(lb))
 disp.plot(cmap='Blues')
@@ -80,6 +83,9 @@ log_reg_l1.fit(X_train_scaled, y_train)
 
 # 2. Affichage de la matrice de confusion 
 y_pred_l1 = log_reg_l1.predict(X_test_scaled)
+print(f"L1 - accuracy : {accuracy_score(y_test, y_pred_l1):.4f}")
+print(f"L1 - F1 macro : {f1_score(y_test, y_pred_l1, average='macro'):.4f}")
+print(f"L1 - coefficients non nuls : {np.count_nonzero(log_reg_l1.coef_)} / {log_reg_l1.coef_.size}")
 cm = confusion_matrix(y_test, y_pred_l1)
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=np.unique(lb))
 disp.plot(cmap='Blues')
