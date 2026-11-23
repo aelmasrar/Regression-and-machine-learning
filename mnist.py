@@ -15,7 +15,7 @@ from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, accuracy_s
 # LOAD MNIST
 ###############################################################################
 # Download MNIST
-mnist = fetch_openml(data_id=554, parser='auto')
+mnist = fetch_openml(data_id=554, parser='liac-arff')
 # copy mnist.data (type is pandas DataFrame)
 data = mnist.data
 # array (70000,784) collecting all the 28x28 vectorized images
