@@ -1,10 +1,14 @@
 ###############################################################################
 # MODULES
 ###############################################################################
+from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.linalg as la
 import numpy.random as rnd
+
+FIGURES_DIR = Path(__file__).resolve().parent / "figures"
+FIGURES_DIR.mkdir(exist_ok=True)
 ###############################################################################
 
 ################################################################################
@@ -106,4 +110,5 @@ ax.set_title(
     f"n0={n0}, n1={n1}, nout={nout}, lambda={lamb}"
 )
 
+plt.savefig(FIGURES_DIR / "frontieres_classification.png", dpi=200, bbox_inches="tight")
 plt.show()
