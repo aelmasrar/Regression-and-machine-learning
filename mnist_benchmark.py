@@ -25,7 +25,7 @@ TEST_SIZE = 3000
 
 
 def load_mnist():
-    mnist = fetch_openml(data_id=554, as_frame=False, parser="auto")
+    mnist = fetch_openml(data_id=554, as_frame=False, parser="liac-arff")
     X = np.asarray(mnist.data, dtype=np.float32) / 255.0
     y = np.asarray(mnist.target, dtype=np.int64)
 
