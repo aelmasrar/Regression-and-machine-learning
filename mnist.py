@@ -45,7 +45,7 @@ X_train_scaled = scaler.fit_transform(X_train.astype(float))
 X_test_scaled = scaler.transform(X_test.astype(float))
 
 # 2. Entraînement avec régularisation L2
-log_reg_l2 = LogisticRegression(penalty='l2', C=0.01, tol=0.01, max_iter=200)
+log_reg_l2 = LogisticRegression(C=0.01, tol=0.01, max_iter=200)
 log_reg_l2.fit(X_train_scaled, y_train)
 
 # 3. Affichage de la matrice de confusion 
@@ -78,7 +78,7 @@ plt.show()
 ##############################################################################
 
 # 1. Réentraînement avec pénalité L1
-log_reg_l1 = LogisticRegression(penalty='l1', solver='saga', C=0.01, tol=0.01, max_iter=200)
+log_reg_l1 = LogisticRegression(l1_ratio=1, solver='saga', C=0.01, tol=0.01, max_iter=200, random_state=0)
 log_reg_l1.fit(X_train_scaled, y_train)
 
 # 2. Affichage de la matrice de confusion 
