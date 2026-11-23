@@ -1,6 +1,10 @@
+from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
+
+FIGURES_DIR = Path(__file__).resolve().parent / "figures"
+FIGURES_DIR.mkdir(exist_ok=True)
 
 
 def load_data(filename):
@@ -29,6 +33,8 @@ def linear_regression(x, y, title):
     plt.ylabel("y")
     plt.title(title)
     plt.legend()
+    filename = "ols_data1.png" if "data1" in title else "ols_data2.png"
+    plt.savefig(FIGURES_DIR / filename, dpi=200, bbox_inches="tight")
     plt.show()
 
 
@@ -59,6 +65,7 @@ def polynomial_regression(x, y, degree=10):
     plt.ylabel("y")
     plt.title("Régression polynomiale")
     plt.legend()
+    plt.savefig(FIGURES_DIR / f"regression_polynomiale_degre_{degree}.png", dpi=200, bbox_inches="tight")
     plt.show()
 
 
