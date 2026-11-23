@@ -1,6 +1,7 @@
 ###############################################################################
 # MODULES
 ###############################################################################
+from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -9,6 +10,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, accuracy_score, f1_score
+
+FIGURES_DIR = Path(__file__).resolve().parent / "figures"
+FIGURES_DIR.mkdir(exist_ok=True)
 
 
 ###############################################################################
@@ -56,6 +60,7 @@ cm = confusion_matrix(y_test, y_pred)
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=np.unique(lb))
 disp.plot(cmap='Blues')
 plt.title("Matrice de Confusion (Régularisation L2)")
+plt.savefig(FIGURES_DIR / "mnist_confusion_l2.png", dpi=200, bbox_inches="tight")
 plt.show()
 
 # 4. Visualisation des coefficients Beta sous forme d'image 
@@ -70,6 +75,7 @@ for i in range(10):
     plt.title(f"Chiffre {i}")
     plt.axis('off')
 plt.suptitle("Coefficients Beta (Régularisation L2)")
+plt.savefig(FIGURES_DIR / "mnist_coefficients_l2.png", dpi=200, bbox_inches="tight")
 plt.show()
 
 
@@ -90,6 +96,7 @@ cm = confusion_matrix(y_test, y_pred_l1)
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=np.unique(lb))
 disp.plot(cmap='Blues')
 plt.title("Matrice de Confusion (Régularisation L1)")
+plt.savefig(FIGURES_DIR / "mnist_confusion_l1.png", dpi=200, bbox_inches="tight")
 plt.show()
 
 # 3. Visualisation des coefficients Beta sous forme d'image
@@ -103,6 +110,7 @@ for i in range(10):
     plt.title(f"Chiffre {i} (L1)")
     plt.axis('off')
 plt.suptitle("Coefficients Beta (Régularisation L1)")
+plt.savefig(FIGURES_DIR / "mnist_coefficients_l1.png", dpi=200, bbox_inches="tight")
 plt.show()
 
 
@@ -116,4 +124,5 @@ for i in np.arange(m):
   plt.imshow(img[i,:].reshape((28,28)), cmap='gray')
   ex_plot.set_xticks(()); ex_plot.set_yticks(())
   #lt.title("Label = %i" % lb[i])
+plt.savefig(FIGURES_DIR / "mnist_exemples.png", dpi=200, bbox_inches="tight")
 plt.show()
